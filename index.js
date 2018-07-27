@@ -7,6 +7,11 @@ const arquivo = "cadastros.json";
 let cadastros = {};
 
 fs.readFile(arquivo, (err, dados)=>{
+
+    if(!err){
+        let dadosString = dados.toString();
+        let cadastros = JSON.parse(dadosString);
+    }
     let dadosString = dados.toString();
     let cadastros = JSON.parse(dadosString);
 
@@ -31,7 +36,7 @@ fs.readFile(arquivo, (err, dados)=>{
         console.log(cadastros);
     }
     else{
-        console.log("Ta Na Disney ? ");
+        console.log("sintaxe: node index.js <comando> <nome> <email>");
     }
     
     cadastros[nome] = email;
