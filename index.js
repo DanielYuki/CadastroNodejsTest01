@@ -6,40 +6,51 @@ const arquivo = "cadastros.json";
 
 let cadastros = {};
 
-fs.readFile(arquivo, (err, dados)=>{
+fs.readFile(arquivo, (err, dados) => {
 
-    if(!err){
+    if (!err) {
         let dadosString = dados.toString();
         let cadastros = JSON.parse(dadosString);
     }
     let dadosString = dados.toString();
     let cadastros = JSON.parse(dadosString);
 
-    if(comando === "salvar"){
-        cadastros[nome]= email;
-    
-        let dados = JSON.stringify(cadastros);
-    
-        fs.writeFile("cadastros.json", dados, (err)=>{
-            if(err){
-                console.log("Deu Ruim");
-            }
-            else{
-                console.log("Salvo Com sucesso");
-            }
-        });
+    if (comando === "salvar") {
+        if ((!nome) || (!email)) {
+            console.log("Digite um nome e/ou email")
+        }
+        else if (nome === "omaewa" && email === "mou@shindeiru") {
+            console.log("NANI!!!!!\n Cadastro Realizado com sucesso");
+        }
+        else {
+            cadastros[nome] = email;
+
+            let dados = JSON.stringify(cadastros);
+
+            fs.writeFile("cadastros.json", dados, (err) => {
+                if (err) {
+                    console.log("Deu Ruim");
+                }
+                else {
+                    console.log("Salvo Com sucesso");
+                }
+            });
+        }
     }
-    else if(comando === "buscar"){
-        console.log(cadastros[nome]);
+    else if (comando === "buscar") {
+        if ((cadastros[nome]) === undefined) {
+            console.log("Nome não existe");
+        }
+        else {
+            console.log(`E-mail: ${cadastros[nome]}`);
+        }
     }
-    else if(comando === "buscar-todos"){
+    else if (comando === "buscar-todos") {
         console.log(cadastros);
     }
-    else{
+    else {
         console.log("sintaxe: node index.js <comando> <nome> <email>");
     }
-    
-    cadastros[nome] = email;
 })
 
 /*
